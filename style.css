@@ -1,0 +1,59 @@
+body {
+    background-image: url("https://images.unsplash.com/photo-1690652482777-485b5a8f6f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=872&q=80");
+    background-position: center;
+    background-size: cover;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.weather {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.greeting {
+    margin-bottom: 30px;
+}
+
+.motto {
+    margin-bottom: 30px;
+}
+
+.logo {
+    margin-left: 30px;
+    height: 40px;
+    /* margin-top: 10px; */
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@1,100&family=Source+Code+Pro&family=Tilt+Prism&display=swap');
+
+* {
+    font-family: 'Tilt Prism', cursive;
+}
