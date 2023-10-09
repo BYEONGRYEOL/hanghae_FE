@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <style>
+      body {
+        background-image: url("https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/webjong/images/background.jpg");
+        background-position: center;
+        background-size: cover;
+        color: white;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .weather {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        /* Flex 안의 아이템들을 세로 방향으로 배치합니다. */
+        justify-content: center;
+        /* 주축 방향으로 가운데 정렬합니다. */
+        align-items: center;
+        /* 교차축 방향으로 가운데 정렬합니다. */
+        height: 100vh;
+        text-align: center;
+      }
+
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        padding: 20px 0;
+      }
+
+      .greeting {
+        margin-bottom: 50px;
+      }
+
+      .motto {
+        margin-bottom: 100px;
+      }
+
+      .logo {
+        height: 32px;
+        margin-left: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <img
+        class="logo"
+        src="https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/webjong/images/sparta-logo.svg"
+        alt=""
+      />
+      <div class="weather">
+        <img id="weatherIcon" />
+        <p id="temperature"></p>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="greeting">
+        <h1>Hello, My name!</h1>
+        <h1 id="current-time"></h1>
+      </div>
+
+      <div class="motto">
+        <h3>My life's motto</h3>
+        <h2>웃으면 행복해집니다.</h2>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p id="quoteAuthor"></p>
+      <p id="quoteContent"></p>
+    </div>
+  </body>
+
+  <script>
+    // 현재 시간을 표시할 요소를 선택합니다.
+    var currentTimeElement = document.getElementById("current-time");
+
+    // 현재 시간을 업데이트하고 표시하는 함수를 정의합니다.
+    function displayCurrentTime() {
+      var currentTime = new Date(); // 현재 시간을 가져옵니다.
+
+      // 시간, 분, 초를 추출합니다.
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      var seconds = currentTime.getSeconds();
+
+      // 시간을 12시간 형식으로 변환합니다.
+      var ampm = hours >= 12 ? "오후" : "오전";
+      hours = hours % 12;
+      hours = hours ? hours : 12; // 0시를 12시로 표시합니다.
+
+      // 시간을 문자열로 조합합니다.
+      var timeString = ampm + " " + hours + ":" + minutes + ":" + seconds;
+
+      // 요소에 현재 시간을 표시합니다.
+      currentTimeElement.textContent = timeString;
+    }
+
+    // 페이지가 로드될 때와 1초마다 현재 시간을 업데이트합니다.
+    displayCurrentTime(); // 페이지 로드 시 초기 표시
+    setInterval(displayCurrentTime, 1000); // 1초마다 업데이트
+
+    // 명언 API
+    let url = "https://api.quotable.io/random";
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        let author = data["author"];
+        let content = data["content"];
+
+        let authorText = `- ${author} -`;
+        let contentText = `" ${content} "`;
+        $("#quoteAuthor").text(authorText);
+        $("#quoteContent").text(contentText);
+      });
+
+    // 날씨 API
+    let weather_url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
+    fetch(weather_url)
+      .then((res) => res.json())
+      .then((data) => {
+        let iconURL = data["icon"];
+        let temperature = data["temp"];
+        $("#temperature").text(temperature);
+        $("#weatherIcon").attr("src", iconURL);
+      });
+  </script>
+</html>
